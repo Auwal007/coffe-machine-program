@@ -92,7 +92,7 @@ def coffee_machine():
                         print(f"Here is ${change} in change.")
                     make_coffee(choice)
                 else:
-                    print("Sorry, that's not enough money. Money refunded.")
+                    print("Sorry, that's not enough money. Money refunded..")
         
         else:
             print("Invalid coffe choice. Please select a valid option.")
