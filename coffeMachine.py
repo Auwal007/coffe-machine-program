@@ -3,6 +3,7 @@ MENU = {
     "espresso": {
         "ingredients": {
             "water": 50,
+            "milk": 0,
             "coffee": 18,
         },
         "cost": 1.5,
@@ -34,8 +35,9 @@ resources = {
 }
 
 # Prints the current resources and money in the machine.
+# I assume that wate and milk are measured in millimeter while coffee in gram.
 def print_report():
-    print("Current resources:")
+    print("Current resources report:")
     print(f"Water: {resources['water']}ml")
     print(f"Milk: {resources['milk']}ml")
     print(f"Coffee: {resources['coffee']}g")
@@ -83,7 +85,7 @@ def coffee_machine():
         elif choice in MENU:
             if check_resources(choice):
                 payment = process_coins()
-                
+                # Processing payment and change if applicable
                 if payment >= MENU[choice]["cost"]:
                     change = round(payment - MENU[choice]["cost"], 2)
                     if change > 0:
