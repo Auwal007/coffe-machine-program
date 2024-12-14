@@ -69,7 +69,7 @@ def make_coffee(drink):
     print(f"Making your {drink}...")
     print(f"Here is your {drink}. Enjoy!")
 
-# Main function to run the coffee machine.
+# the main function to run the coffee machine.
 def coffee_machine():
     while True:
         choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
