@@ -23,13 +23,14 @@ MENU = {
         "cost": 3.0,
     },
 }
-
+# Function to check and print resources report
 def print_report(resources):
     print(f"Water: {resources['water']}ml")
     print(f"Milk: {resources['milk']}ml")
     print(f"Coffee: {resources['coffee']}g")
     print(f"Money: ${resources['money']}")
 
+# Function to check if the ingredients for a selected coffe are available 
 def check_resources(order, resources):
     ingredients = MENU[order]["ingredients"]
     for item in ingredients:
@@ -38,6 +39,7 @@ def check_resources(order, resources):
             return False
     return True
 
+# Function to calculate the coins for a selected coffee
 def process_coins():
     print("Please insert coins.")
     total = 0
@@ -46,3 +48,19 @@ def process_coins():
     total += int(input("How many nickels? ")) * 0.05
     total += int(input("How many pennies? ")) * 0.01
     return total
+
+def coffee_machine():
+    resources = {
+        "water": 300,
+        "milk": 200,
+        "coffee": 100,
+        "money": 0,
+    }
+    is_on = True
+
+def make_coffee(order, resources):
+    ingredients = MENU[order]["ingredients"]
+    for item in ingredients:
+        resources[item] -= ingredients[item]
+    resources["money"] += MENU[order]["cost"]
+    print(f"Here is your {order}. Enjoy!")
