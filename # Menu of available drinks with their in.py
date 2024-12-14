@@ -25,6 +25,7 @@ MENU = {
     },
 }
 
+
 # Initial resources available in the coffee machine
 resources = {
     "water": 300,
@@ -33,23 +34,23 @@ resources = {
     "money": 0,
 }
 
-# Prints the current resources and money in the machine.
+"""Prints the current resources and money in the machine."""
 def print_report():
     print("Current resources:")
-    print(f"Water: {resources['water']}ml")
-    print(f"Milk: {resources['milk']}ml")
-    print(f"Coffee: {resources['coffee']}g")
-    print(f"Money: ${resources['money']:.2f}")
+    print(f"Water: {resources['water']}")
+    print(f"Milk: {resources['milk']}")
+    print(f"Coffee: {resources['coffee']}")
+    print(f"Money: ${resources['money']:}")
 
-#Checks if there are enough resources to make the selected coffee
+"""Checks if there are enough resources to make the selected coffee."""
 def check_resources(drink):
-    for ingredient, amount in MENU[drink]["ingredients"].items():
-        if amount > resources.get(ingredient, 0):
+    for ingredient in MENU[drink]:
+        if ingredient != 'cost' and MENU[drink][ingredient] > resources[ingredient]:
             print(f"Sorry, there is not enough {ingredient}.")
             return False
     return True
 
-# Prompts user to insert coins and returns total amount inserted
+"""Prompts user to insert coins and returns total amount inserted."""
 def process_coins():
     print("Please insert coins.")
     quarters = int(input("How many quarters? ")) * 0.25
@@ -59,26 +60,27 @@ def process_coins():
     total_money = quarters + dimes + nickels + pennies
     return total_money
 
-# Deducts ingredients from resources and adds money for the selected drink.
+"""Deducts ingredients from resources and adds money for the selected drink."""
 def make_coffee(drink):
-    for ingredient, amount in MENU[drink]["ingredients"].items():
-        resources[ingredient] -= amount
+    for ingredient in MENU[drink]:
+        if ingredient != 'cost':
+            resources[ingredient] -= MENU[drink][ingredient]
+    
     resources["money"] += MENU[drink]["cost"]
     print(f"Making your {drink}...")
     print(f"Here is your {drink}. Enjoy!")
 
-# Main function to run the coffee machine.
+"""Main function to run the coffee machine."""
 def coffee_machine():
     while True:
         choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
-        print(f"You choose {choice}..")
         
         if choice == "off":
             print("Turning off the coffee machine.")
             break
         
         elif choice == "report":
-            print(print_report())
+            print_report()
         
         elif choice in MENU:
             if check_resources(choice):
@@ -93,7 +95,7 @@ def coffee_machine():
                     print("Sorry, that's not enough money. Money refunded.")
         
         else:
-            print("Invalid coffe choice. Please select a valid option.")
+            print("Invalid choice. Please select a valid option.")
 
 # Start the coffee machine program
 coffee_machine()
